@@ -32,8 +32,9 @@ function App() {
   });
 
   const endStyles = useSpring({
-    opacity: isGameEnd !== null ? 1 : 0,
-    y: isGameEnd !== null ? 0 : 50,
+    opacity: isGameEnd ? 1 : 0,
+    y: isGameEnd ? 0 : 40,
+    scale: isGameEnd ? 1 : 0.8,
   });
 
   useEffect(() => {
@@ -57,7 +58,11 @@ function App() {
           <div className="relative flex w-full flex-1 flex-col items-center justify-center gap-4">
             {playerChoice === null ? (
               <>
-                <img src="/bg-triangle.svg" alt="" className="absolute w-48" />
+                <img
+                  src="/bg-triangle.svg"
+                  alt=""
+                  className="absolute w-48 select-none"
+                />
                 <div className="flex gap-8">
                   <PaperButton onClick={() => playPlayer(ActionChoice.Paper)} />
                   <ScissorsButton
