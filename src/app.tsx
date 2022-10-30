@@ -1,4 +1,4 @@
-import { useEffect, useState } from "preact/hooks";
+import { useState } from "preact/hooks";
 import { animated, useSpring } from "react-spring";
 import {
   PaperButton,
@@ -37,17 +37,16 @@ function App() {
     scale: isGameEnd ? 1 : 0.8,
   });
 
-  useEffect(() => {
-    if (playerChoice !== null) {
-      setTimeout(() => {
-        playOpponent();
+  const play = (choice: ActionChoice) => {
+    playPlayer(choice);
+    setTimeout(() => {
+      playOpponent();
 
-        setTimeout(() => {
-          decide();
-        }, 500);
+      setTimeout(() => {
+        decide();
       }, 500);
-    }
-  }, [playerChoice]);
+    }, 500);
+  };
 
   return (
     <>
@@ -64,17 +63,10 @@ function App() {
                   className="absolute w-48 select-none"
                 />
                 <div className="flex gap-8">
-                  <PaperButton onClick={() => playPlayer(ActionChoice.Paper)} />
-                  <ScissorsButton
-                    onClick={() => playPlayer(ActionChoice.Scissors)}
-                  />
+                  <PaperButton onClick={() => play(ActionChoice.Paper)} />
+                  <ScissorsButton onClick={() => play(ActionChoice.Scissors)} />
                 </div>
-                <RockButton
-                  onClick={() => {
-                    playPlayer(ActionChoice.Rock);
-                    console.log("click");
-                  }}
-                />
+                <RockButton onClick={() => play(ActionChoice.Rock)} />
               </>
             ) : (
               <div className="grid grid-rows-2 place-items-center gap-16">
